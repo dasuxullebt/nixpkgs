@@ -7483,6 +7483,13 @@ let
 
   lzo = callPackage ../development/libraries/lzo { };
 
+  mate_common = callPackage ../desktops/mate/mate-common { };
+  mate_desktop = callPackage ../desktops/mate/mate-desktop { gtk = gnome.gtk; dconf = gnome3.dconf; };
+  caja = callPackage ../desktops/mate/caja { gconf = gnome3.gconf; };
+  atril = callPackage ../desktops/mate/atril { };
+  mate_session_manager = callPackage ../desktops/mate/mate-session-manager { gtk = gnome.gtk; };
+  marco = callPackage ../desktops/mate/marco { libcanberra = gnome3.libcanberra; zenity = gnome.zenity; gtk = gnome.gtk; };
+
   matio = callPackage ../development/libraries/matio { };
 
   mbedtls = callPackage ../development/libraries/mbedtls { };
