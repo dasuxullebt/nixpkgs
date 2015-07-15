@@ -1454,6 +1454,10 @@ let
 
   fdm = callPackage ../tools/networking/fdm {};
 
+  fgallery = callPackage ../tools/graphics/fgallery {
+    inherit (perlPackages) ImageExifTool JSON;
+  };
+
   flannel = callPackage ../tools/networking/flannel { };
 
   flashbench = callPackage ../os-specific/linux/flashbench { };
@@ -2214,6 +2218,8 @@ let
   mosh = callPackage ../tools/networking/mosh {
     inherit (perlPackages) IOTty;
   };
+
+  motuclient = python27Packages.motuclient;
 
   mpage = callPackage ../tools/text/mpage { };
 
@@ -3116,6 +3122,8 @@ let
 
   torsocks = callPackage ../tools/security/tor/torsocks.nix { };
 
+  tpmmanager = callPackage ../applications/misc/tpmmanager { };
+
   tpm-quote-tools = callPackage ../tools/security/tpm-quote-tools { };
 
   tpm-tools = callPackage ../tools/security/tpm-tools { };
@@ -3483,6 +3491,8 @@ let
   xsel = callPackage ../tools/misc/xsel { };
 
   xtreemfs = callPackage ../tools/filesystems/xtreemfs {};
+
+  xurls = callPackage ../tools/text/xurls {};
 
   xvfb_run = callPackage ../tools/misc/xvfb-run { inherit (texFunctions) fontsConf; };
 
@@ -5734,6 +5744,8 @@ let
     flex = flex_2_5_35;
   };
 
+  sqlitebrowser = callPackage ../development/tools/database/sqlitebrowser { };
+
   sselp = callPackage ../tools/X11/sselp{ };
 
   stm32flash = callPackage ../development/tools/misc/stm32flash { };
@@ -7094,6 +7106,7 @@ let
 
   libkate = callPackage ../development/libraries/libkate { };
 
+  libkeyfinder_0_11 = callPackage ../development/libraries/libkeyfinder/0.11.nix { };
   libkeyfinder = callPackage ../development/libraries/libkeyfinder { };
 
   libksba = callPackage ../development/libraries/libksba { };
@@ -8801,6 +8814,7 @@ let
 
   cadvisor = callPackage ../servers/monitoring/cadvisor { };
 
+  cassandra_1_2 = callPackage ../servers/nosql/cassandra/1.2.nix { };
   cassandra_2_0 = callPackage ../servers/nosql/cassandra/2.0.nix { };
   cassandra_2_1 = callPackage ../servers/nosql/cassandra/2.1.nix { };
   cassandra = cassandra_2_1;
@@ -9079,6 +9093,8 @@ let
   #WIP: OVMF-secureBoot = callPackage ../applications/virtualization/OVMF { seabios=false; secureBoot=true; };
 
   seabios = callPackage ../applications/virtualization/seabios { };
+
+  cbfstool = callPackage ../applications/virtualization/cbfstool { };
 
   pgpool92 = pgpool.override { postgresql = postgresql92; };
   pgpool93 = pgpool.override { postgresql = postgresql93; };
@@ -11305,6 +11321,12 @@ let
     fftw = fftwFloat;
   };
 
+  gnuradio-wrapper = callPackage ../applications/misc/gnuradio/wrapper.nix { };
+
+  gnuradio-full = gnuradio-wrapper.override {
+    extraPackages = [ gnuradio-osmosdr ];
+  };
+
   gnuradio-osmosdr = callPackage ../applications/misc/gnuradio-osmosdr { };
 
   goldendict = callPackage ../applications/misc/goldendict { };
@@ -11852,6 +11874,8 @@ let
     inherit (gnome) libglade;
   };
 
+  leo-editor = callPackage ../applications/editors/leo-editor { };
+
   libowfat = callPackage ../development/libraries/libowfat { };
 
   librecad = callPackage ../applications/misc/librecad { };
@@ -12119,6 +12143,8 @@ let
 
   mutt-kz = callPackage ../applications/networking/mailreaders/mutt-kz { };
 
+  notion = callPackage ../applications/window-managers/notion { };
+
   openshift = callPackage ../applications/networking/cluster/openshift { };
 
   panamax_api = callPackage ../applications/networking/cluster/panamax/api {
@@ -12342,6 +12368,8 @@ let
   };
 
   plugin-torture = callPackage ../applications/audio/plugin-torture { };
+
+  poezio = python3Packages.poezio;
 
   pommed = callPackage ../os-specific/linux/pommed {
     inherit (xorg) libXpm;

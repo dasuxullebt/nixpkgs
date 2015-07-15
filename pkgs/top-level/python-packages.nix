@@ -2214,20 +2214,20 @@ let
       license = licenses.asl20;
     };
   };
-  
+
   cytoolz = buildPythonPackage rec {
     name = "cytoolz-${version}";
     version = "0.7.3";
-    
+
     src = pkgs.fetchurl{
       url = "https://pypi.python.org/packages/source/c/cytoolz/cytoolz-${version}.tar.gz";
       md5 = "e9f0441d9f340a23c60357f68f25d163";
     };
-    
+
     meta = {
       homepage = "http://github.com/pytoolz/cytoolz/";
       description = "Cython implementation of Toolz: High performance functional utilities";
-      license = "licenses.bsd3";   
+      license = "licenses.bsd3";
     };
   };
 
@@ -2597,14 +2597,14 @@ let
   datashape = buildPythonPackage rec {
     name = "datashape-${version}";
     version = "0.4.6";
-    
+
     src = pkgs.fetchurl {
       url = "https://pypi.python.org/packages/source/D/DataShape/${name}.tar.gz";
-      sha256 = "0caa86a4347f1b0c45f3890d78d0b89662189c7dd6df3a8e5ff3532ae8bc434f";    
+      sha256 = "0caa86a4347f1b0c45f3890d78d0b89662189c7dd6df3a8e5ff3532ae8bc434f";
     };
-    
+
     propagatedBuildInputs = with self; [ numpy multipledispatch dateutil ];
-    
+
     meta = {
       homepage = https://github.com/ContinuumIO/datashape;
       description = "A data description language";
@@ -2845,6 +2845,25 @@ let
     src = pkgs.fetchurl {
       url = "http://www.dnspython.org/kits/1.12.0/dnspython-1.12.0.tar.gz";
       sha256 = "0kvjlkp96qzh3j31szpjlzqbp02brixh4j4clnpw80b0hspq5yq3";
+    };
+  };
+
+  dnspython3 = buildPythonPackage rec {
+    name = "dnspython3-${version}";
+    version = "1.12.0";
+
+    disabled = (!isPy3k);
+
+    src = pkgs.fetchurl {
+      url = "https://pypi.python.org/packages/source/d/dnspython3/${name}.zip";
+      sha256 = "138wxj702vx6zni9g2y8dbgbpin95v6hk23rh2kwfr3q4130jqz9";
+    };
+
+    meta = {
+      description = "A DNS toolkit for Python 3.x";
+      homepage = http://www.dnspython.org;
+      # BSD-like, check http://www.dnspython.org/LICENSE for details
+      license = licenses.free;
     };
   };
 
@@ -3817,6 +3836,32 @@ let
       description = "Library for parsing MediaWiki articles and converting them to different output formats";
       homepage = "http://pediapress.com/code/";
       license = licenses.bsd3;
+    };
+  };
+
+  motuclient = buildPythonPackage rec {
+    name = "motu-client-${version}";
+    version = "1.0.8";
+
+    namePrefix = "";
+    disabled = !isPy27;
+
+    src = pkgs.fetchurl {
+      url = "https://gitlab.com/lsix/motu-client/repository/archive.tar.gz?ref=${name}";
+      sha256 = "1d2hbws085hxf5hb1wsdlacy8skwn2sswr1b2xv18fbw5ckbqi8i";
+    };
+
+    meta = {
+      homepage = https://gitlab.com/lsix/motu-client;
+      description = "CLI to query oceanographic data to Motu servers";
+      longDescription = ''
+        Access data from (motu)[http://sourceforge.net/projects/cls-motu/] servers.
+        This is a refactored fork of the original release in order to simplify integration,
+        deployment and packaging. Upstream code can be found at
+        http://sourceforge.net/projects/cls-motu/ .
+      '';
+      license = licenses.lgpl3Plus;
+      maintainers = [ maintainers.lsix ];
     };
   };
 
@@ -7669,12 +7714,12 @@ let
   multipledispatch = buildPythonPackage rec {
     name = "multipledispatch-${version}";
     version = "0.4.8";
-   
+
     src = pkgs.fetchurl {
       url = "https://pypi.python.org/packages/source/m/multipledispatch/${name}.tar.gz";
       sha256 = "07d41fb3ed25e8424536e48a8566f88a0f9926ca4b6174bff6aa16c98251b92e";
     };
-    
+
     meta = {
       homepage = http://github.com/mrocklin/multipledispatch/;
       description = "A relatively sane approach to multiple dispatch in Python";
@@ -7922,6 +7967,25 @@ let
     };
   };
 
+  sleekxmpp = buildPythonPackage rec {
+    name = "sleekxmpp-${version}";
+    version = "1.2.5";
+
+    disabled = (!isPy3k);
+
+    propagatedBuildInputs = with self ; [ dnspython3 pyasn1 ];
+
+    src = pkgs.fetchurl {
+      url = "https://github.com/fritzy/SleekXMPP/archive/${version}.tar.gz";
+      sha256 = "1hqs2w5d7x532psfqipd2wl1mkmsaak83jvp1rh9rv406fzp9h67";
+    };
+
+    meta = {
+      description = "XMPP library for Python";
+      license = licenses.mit;
+      homepage = "http://sleekxmpp.com/";
+    };
+  };
 
   netaddr = buildPythonPackage rec {
     name = "netaddr-0.7.5";
@@ -8432,21 +8496,21 @@ let
   odo = buildPythonPackage rec {
     name = "odo-${version}";
     version= "0.3.3";
-    
+
     src = pkgs.fetchurl {
       url = "https://pypi.python.org/packages/source/o/odo/${name}.tar.gz";
       sha256 = "2499ee86c26c74daa28f21ed235ca331911065950deea5169ebdb7d5dae6ebef";
     };
-    
+
     propagatedBuildInputs = with self; [ datashape numpy pandas toolz multipledispatch networkx ];
-    
+
     meta = {
       homepage = https://github.com/ContinuumIO/odo;
       description = "Data migration utilities";
       license = licenses.bsdOriginal;
     };
   };
-  
+
   offtrac = buildPythonPackage rec {
     name = "offtrac-0.1.0";
     meta.maintainers = with maintainers; [ mornfall ];
@@ -8707,21 +8771,21 @@ let
   patsy = buildPythonPackage rec {
     name = "patsy-${version}";
     version = "0.3.0";
-    
+
     src = pkgs.fetchurl{
       url = "https://pypi.python.org/packages/source/p/patsy/${name}.zip";
       md5 = "7545518b413136ba8343dcebea07e5e2";
     };
-    
+
     propagatedBuildInputs = with self; [six numpy];
-    
+
     meta = {
       description = "A Python package for describing statistical models";
       homepage = "https://github.com/pydata/patsy";
       license = licenses.bsd2;
     };
   };
-  
+
   paste = buildPythonPackage rec {
     name = "paste-1.7.5.1";
     disabled = isPy3k;
@@ -10437,16 +10501,16 @@ let
       maintainers = with maintainers; [ koral ];
     };
   };
-  
+
   pystache = buildPythonPackage rec {
     name = "pystache-${version}";
     version = "0.5.4";
-    
+
     src = pkgs.fetchurl {
       url = "https://pypi.python.org/packages/source/p/pystache/${name}.tar.gz";
       sha256 = "f7bbc265fb957b4d6c7c042b336563179444ab313fb93a719759111eabd3b85a";
     };
-    
+
     meta = {
       description = "A framework-agnostic, logic-free templating system inspired by ctemplate and et";
       homepage = https://github.com/defunkt/pystache;
@@ -10662,12 +10726,12 @@ let
   ptyprocess = buildPythonPackage rec {
     name = "ptyprocess-${version}";
     version = "0.5";
-    
+
     src = pkgs.fetchurl {
       url = "https://pypi.python.org/packages/source/p/ptyprocess/${name}.tar.gz";
       sha256= "dcb78fb2197b49ca1b7b2f37b047bc89c0da7a90f90bd5bc17c3ce388bb6ef59";
     };
-    
+
     meta = {
       description = "Run a subprocess in a pseudo terminal";
       homepage = https://github.com/pexpect/ptyprocess;
@@ -13132,21 +13196,21 @@ let
   terminado = buildPythonPackage rec {
     name = "terminado-${version}";
     version = "0.5";
-    
+
     src = pkgs.fetchurl {
       url = "https://pypi.python.org/packages/source/t/terminado/${name}.tar.gz";
       sha256 = "63e893eff1ba84f1ee7c4bfcca7676ba1de6394538bb9aa80cbbc8866cb875b6";
     };
-    
+
     propagatedBuildInputs = with self; [ ptyprocess tornado ];
-    
+
     meta = {
       description = "Terminals served to term.js using Tornado websockets";
       homepage = https://github.com/takluyver/terminado;
       licenses = licenses.bsd2;
     };
   };
-  
+
   testscenarios = buildPythonPackage rec {
     name = "testscenarios-${version}";
     version = "0.4";
@@ -13292,19 +13356,19 @@ let
   toolz = buildPythonPackage rec{
     name = "toolz-${version}";
     version = "0.7.2";
-    
+
     src = pkgs.fetchurl{
       url = "https://pypi.python.org/packages/source/t/toolz/toolz-${version}.tar.gz";
       md5 = "6f045541a9e7ee755b7b00fced4a7fde";
     };
-    
+
     meta = {
       homepage = "http://github.com/pytoolz/toolz/";
       description = "List processing tools and functional utilities";
-      license = "licenses.bsd3";   
+      license = "licenses.bsd3";
     };
   };
-  
+
   tox = buildPythonPackage rec {
     name = "tox-1.8.1";
 
@@ -16577,5 +16641,31 @@ let
     };
   };
 
+  poezio = buildPythonPackage rec {
+    name = "poezio-${version}";
+    version = "0.8.1";
+
+    namePrefix = "";
+    disabled = (!isPy3k);
+    propagatedBuildInputs = with self ; [ dnspython3 sleekxmpp ];
+
+   patches =
+   let patch_base = ../development/python-modules/poezio ;
+   in [ "${patch_base}/make_default_config_writable.patch"
+        "${patch_base}/fix_requirements.patch"
+      ];
+
+    src = pkgs.fetchurl {
+      url = "http://dev.louiz.org/attachments/download/52/${name}.tar.xz";
+      sha256 = "0n3phh3lc82609ssfvqvd4papvhykd1sf2bm88dggh2x4mypwjff";
+    };
+
+    meta = {
+      description = "Free console XMPP client";
+      homepage = http://poez.io;
+      license = licenses.mit;
+      maintainers = [ maintainers.lsix ];
+    };
+  };
 
 }; in pythonPackages
